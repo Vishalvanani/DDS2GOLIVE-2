@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DDS2GO</string>
+    <string name="title_activity_main">DDS2GO</string>
+    <string name="package_name">gov.ga.dds.gaddsstaging</string>
+    <string name="custom_url_scheme">gov.ga.dds.gaddsstaging</string>
+</resources>

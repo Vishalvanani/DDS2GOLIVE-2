@@ -1,0 +1,239 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Information</ion-title>
+    <ion-buttons slot="end" (click)="auth.logoutApp()">
+      <ion-icon name="log-out-outline" class="font-25"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar style="--background: #fff;">
+      <ion-segment (ionChange)="segmentChanged($event)" [value]="segment" mode="md">
+    <ion-segment-button value="info">
+      <ion-label>Driver Info</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="history">
+      <ion-label>Driver History</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div class="real-id-card" *ngIf="INFO && segment =='info' ">
+    <div class="welcomeMsg">Welcome, {{firstName}} {{lastName}}</div>
+    <ion-card style="margin: 10px;">
+      <ion-card-header color="primary">
+        <ion-card-title class="cardTitle">Driver Information</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="cardContent">
+        <ion-row>
+          <ion-col size="6" class="col1">Driver License Number:</ion-col>
+          <ion-col size="6" class="col2">{{INFO.licenseInfo.lic_number != " " && INFO.licenseInfo.lic_number ? INFO.licenseInfo.lic_number : "N/A"}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" class="col1">Real ID:</ion-col>
+          <ion-col size="6" class="col2">
+            <img src="../../assets/imgs/Realid.png" alt="" *ngIf="INFO.driverInfo.realID =='Y'" height="25px" width="25px">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" class="col1">Date of Birth:</ion-col>
+          <ion-col size="6" class="col2">{{INFO.driverInfo.dob != " " && INFO.driverInfo.dob ? INFO.driverInfo.dob : "N/A"}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" class="col1">Address on the License:</ion-col>
+          <ion-col size="6" class="col2">{{INFO.addressInfo.addr_type}} {{INFO.addressInfo.city}} {{INFO.addressInfo.state}} {{INFO.addressInfo.zipcode}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" class="col1">Blood Type:</ion-col>
+          <ion-col size="6" class="col2">{{INFO.driverInfo.blood_type != " " && INFO.driverInfo.blood_type ? INFO.driverInfo.blood_type : "N/A"}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" class="col1">Donor:</ion-col>
+          <ion-col size="6" class="col2">
+            <ion-icon name="heart" class="heartIcon" *ngIf="INFO.driverInfo.donor =='Y'"></ion-icon>
+            <span *ngIf="INFO.driverInfo.donor !='Y'">N/A</span>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row class="border-t-1-ee">
+          <ion-col class="border-r-1-ee">
+            <p class="blue-color-icon">Existing Fees</p>
+            <div class="feesPoint">${{INFO.driverInfo.existfee != " " ? INFO.driverInfo.existfee : "0"}}</div>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <p class="blue-color-icon">Points</p>
+            <div class="feesPoint" [ngClass]="INFO.driverInfo.points == 0 ?'green': INFO.driverInfo.points <= 14 ? 'yellow' : 'red' ">{{INFO.driverInfo.points}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  
+    <ng-container *ngFor="let licenseEndor of INFO.licenseEndorsAll; let i = index">
+      <ion-card *ngIf="licenseEndor.rsp_lic_class_cdField != ' '" style="margin: 10px;">
+        <ion-card-header color="primary" *ngIf="i == 0">
+          <ion-card-title class="cardTitle">License/ID Information</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="cardContent">
+          <ion-row>
+            <ion-col size="6" class="col1">License Type:</ion-col>
+            <ion-col size="6" class="col2">{{licenseEndor.rsp_lic_type_descField != " " && licenseEndor.rsp_lic_type_descField ? licenseEndor.rsp_lic_type_descField : 'N/A' }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Class:</ion-col>
+            <ion-col size="6" class="col2">{{licenseEndor.rsp_lic_class_cdField != " " && licenseEndor.rsp_lic_class_cdField ? licenseEndor.rsp_lic_class_cdField : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Status:</ion-col>
+            <ion-col size="6" class="col2" [ngClass]="INFO.licenseInfo.lic_status == 'VALID' ?'neon-color-icon': 'red-color-icon'">{{INFO.licenseInfo.lic_status}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Issue Date:</ion-col>
+            <ion-col size="6" class="col2">{{licenseEndor.rsp_lic_issu_dtField != " " && licenseEndor.rsp_lic_issu_dtField ? licenseEndor.rsp_lic_issu_dtField : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Expiration Date:</ion-col>
+            <ion-col size="6" class="col2">{{licenseEndor.rsp_lic_expr_dtField != " " && licenseEndor.rsp_lic_expr_dtField ? licenseEndor.rsp_lic_expr_dtField : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Endorsements:</ion-col>
+            <ion-col size="6" class="col2">
+              <p *ngIf=" licenseEndor['rsp_lic_endr_arrayField'][0].rsp_lic_endr_descField == ' ' &&  licenseEndor['rsp_lic_endr_arrayField'][0].rsp_lic_endr_descField" class="font-14">N/A</p>
+              <p *ngFor="let e of licenseEndor['rsp_lic_endr_arrayField']"  class="font-14">
+                <span *ngIf="e.rsp_lic_endr_descField">{{e.rsp_lic_endr_descField}}</span>
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Restrictions:</ion-col>
+            <ion-col size="6" class="col2">
+              <p *ngIf="licenseEndor['rsp_lic_rstr_arrayField'][0].rsp_lic_rstr_descField == ' ' &&  licenseEndor['rsp_lic_rstr_arrayField'][0].rsp_lic_rstr_descField" class="font-14">N/A</p>
+              <p *ngFor="let r of licenseEndor['rsp_lic_rstr_arrayField']" class="font-14">
+                <span class="blue-color-icon" *ngIf="r.rsp_lic_rstr_descField">{{r.rsp_lic_rstr_descField}}</span>
+              </p>
+          </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </div>
+
+  <ion-accordion-group *ngIf="INFO && segment =='history' " [animated]="false">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>Citation(s)</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <div *ngFor="let item of DriverHistory['citation']">
+          <ion-card *ngIf='item["rsp_mvr_cita_legl_descField"] != " "' style="margin: 0px;">
+            <ion-card-content class="cardContent">
+              <ion-row>
+                <ion-col size="6" class="col1">Description:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_legl_descField'] != " " && item['rsp_mvr_cita_legl_descField'] ? item['rsp_mvr_cita_legl_descField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Violation Date:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_dtField'] != " " && item['rsp_mvr_cita_dtField'] ? item['rsp_mvr_cita_dtField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Accident Involved:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_accd_flField'] != " " && item['rsp_mvr_cita_accd_flField'] ? item['rsp_mvr_cita_accd_flField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Commercial Offence:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_cdl_flField'] != " " && item['rsp_mvr_cita_cdl_flField'] ? item['rsp_mvr_cita_cdl_flField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Hazardous Material:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_hzmt_flField'] != " " && item['rsp_mvr_cita_hzmt_flField'] ? item['rsp_mvr_cita_hzmt_flField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Disposition Date:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_disp_dtField'] != " " && item['rsp_mvr_cita_disp_dtField'] ? item['rsp_mvr_cita_disp_dtField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Disposition:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_disp_descField'] != " " && item['rsp_mvr_cita_disp_descField'] ? item['rsp_mvr_cita_disp_descField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Points:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_pointsField'] != " " && item['rsp_mvr_cita_pointsField'] ? item['rsp_mvr_cita_pointsField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Jurisdiction:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_jurdctField'] != " " && item['rsp_mvr_cita_jurdctField'] ? item['rsp_mvr_cita_jurdctField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Court:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_cita_crt_nameField'] != " " && item['rsp_mvr_cita_crt_nameField'] ? item['rsp_mvr_cita_crt_nameField'] : 'N/A'}}</ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <p *ngIf="DriverHistory && DriverHistory['citation'].length == 0" style="text-align: center;">
+          No citation information was found
+        </p>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <ion-accordion-group *ngIf="INFO && segment =='history' " [animated]="false">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>Withdrawl(s)</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <div *ngFor="let item of DriverHistory['withdrawls']">
+          <ion-card *ngIf='item["rsp_mvr_susp_descField"] != " " ' style="margin: 0px;">
+            <ion-card-content class="cardContent">
+              <ion-row>
+                <ion-col size="6" class="col1">Description:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_descField'] != " " && item['rsp_mvr_susp_descField'] ? item['rsp_mvr_susp_descField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Withdrawl Type:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_wdrl_typeField'] != " " && item['rsp_mvr_susp_wdrl_typeField'] ? item['rsp_mvr_susp_wdrl_typeField'] : 'N/A' }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Withdrawl Extent:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_wdrl_extField'] != " " && item['rsp_mvr_susp_wdrl_extField'] ? item['rsp_mvr_susp_wdrl_extField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Jurisdiction:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_jurdctField'] != " " && item['rsp_mvr_susp_jurdctField'] ? item['rsp_mvr_susp_jurdctField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Reinstatement Date:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_rein_dtField'] != " " && item['rsp_mvr_susp_rein_dtField'] ? item['rsp_mvr_susp_rein_dtField'] : 'N/A' }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Served Type:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_serv_descField'] != " " && item['rsp_mvr_susp_serv_descField'] ? item['rsp_mvr_susp_serv_descField'] : 'N/A' }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Served Date:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_serv_dtField'] != " " && item['rsp_mvr_susp_serv_dtField'] ? item['rsp_mvr_susp_serv_dtField'] : "N/A"}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Violation Date:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_violat_dtField'] != " " && item['rsp_mvr_susp_violat_dtField'] ? item['rsp_mvr_susp_violat_dtField'] : 'N/A'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Effective Date:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_dtField'] != " " && item['rsp_mvr_susp_dtField'] ? item['rsp_mvr_susp_dtField'] : "N/A"}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="6" class="col1">Expiration Date:</ion-col>
+                <ion-col size="6" class="col2">{{item['rsp_mvr_susp_expr_dtField'] != " " && item['rsp_mvr_susp_expr_dtField'] ? item['rsp_mvr_susp_expr_dtField'] : "N/A"}}</ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <p *ngIf="DriverHistory && DriverHistory['withdrawls'].length == 0" style="text-align: center;">
+          No withdrawl information was found
+        </p>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header >
+  <ion-toolbar style="padding: 0px !important;">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Location </ion-title>
+    <ion-buttons slot="end" (click)="auth.logoutApp()" *ngIf="!isFromLogin">
+      <ion-icon name="log-out-outline" class="font-25"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-segment [(ngModel)]="MapSegment" (ionChange)="mapViewChangeAction($event)" value="MapView" mode="md" style="--background: #fff !important;">
+    <ion-segment-button value="MapView"><ion-label>MapView</ion-label></ion-segment-button>
+    <ion-segment-button value="ListView"><ion-label>ListView</ion-label></ion-segment-button>
+  </ion-segment>
+</ion-header>
+<ion-view class="viewcontainer" cache-view="false">
+<ion-content >
+   <div class="container"  [ngSwitch]="MapSegment">
+      <div class="container-map" *ngSwitchCase="'MapView'">
+        <p style="margin-top: 0;margin-bottom: 0;margin-right: 0;padding:10px;background: white;">
+          <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" style="background:white;"></AutocompleteComponent>
+       </p>
+        <capacitor-google-map #map></capacitor-google-map>
+        <ion-list lines="full" class="container-list">
+          <ion-list-header color="light" lines="full">
+              <ion-label style="text-align: left;">Address</ion-label>
+              <ion-label style="text-align: center;">Distance</ion-label>
+          </ion-list-header>
+          <div *ngFor="let result of mapviewresults; let c=index;">
+            <div *ngIf="c < 3">
+              <ion-item>
+              <ion-label text-wrap slot="start"><span>{{result.Building_Name}}</span> <br/><span style="font-size: x-small;word-wrap: break-word;">{{result.Address}}</span></ion-label>
+              <ion-label style="width: 55px;" slot="end">{{result.location_distance}} miles </ion-label>
+              <ion-icon name="navigate-outline" (click)="openmap(result.Latitude,result.Longitude)" slot="end"></ion-icon>
+            </ion-item>
+            </div>
+          </div>
+        </ion-list>
+      </div>
+
+      <div class="container" *ngSwitchCase="'ListView'">
+        <ion-list lines="full" style="height: 100%;">
+          <ion-list-header color="light" lines="full">
+            <ion-label style="text-align: left;">Address</ion-label>
+            <ion-label style="text-align: center;">Distance</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let result of results">
+            <ion-label text-wrap slot="start">{{result.Building_Name}} <br/><span style="font-size: x-small;word-wrap: break-word;">{{result.Address}}</span></ion-label>
+            <ion-label style="width: 55px;" slot="end">{{result.location_distance}} miles </ion-label>
+              <ion-icon name="navigate-outline" (click)="openmap(result.Latitude,result.Longitude)" slot="end"></ion-icon>
+            </ion-item>
+        </ion-list>
+      </div>
+    </div>
+    </ion-content>
+  </ion-view>

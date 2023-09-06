@@ -1,0 +1,129 @@
+ion-modal {
+  ion-button {
+    font-size: 16px !important;
+  }
+
+  ion-item {
+    --padding-start: 0px !important;
+    --inner-padding-end: 0px !important;
+    --inner-border-width:0px !important;
+  }
+}
+ion-modal{
+  ion-button{
+    margin: auto;
+    display: table;
+    width: 100%;
+  }
+  ion-item{
+    --padding-start:0px !important;
+    --inner-padding-end: 0px !important;
+    --inner-border-width:0px !important;
+
+    ion-label{
+      font-size: 16px;
+    }
+  }
+}
+
+
+.logo {
+  width: 70%;
+  margin: auto;
+  display: table;
+}
+.login-hd::after {
+  background-image: none !important;
+}
+
+.checkbox {
+  margin: 8px 16px;
+  color: #294980 !important;
+  font-size: 16px;
+  margin-left: 0px;
+}
+
+.createAcc {
+  text-align: center;
+  margin-top: 15px;
+  color: #000;
+}
+
+.loginBtn {
+  margin: auto;
+  display: table;
+  margin-top: 15px;
+  width: 40%;
+  height: 40px;
+  --border-radius: 3px;
+  --background: #666666;
+}
+
+.btnEnabled {
+  --background: #294980;
+}
+
+.btnDisabled {
+  --background: #666666;
+}
+
+.forgot {
+  text-align: center;
+  font-size: 15px;
+  color: #103a84;
+  // border-bottom: 1px solid;
+  width: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.privacy {
+  text-align: center;
+  font-size: 15px;
+  color: #103a84;
+  width: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.grid-card {
+  margin: 5px;
+  min-height: 110px;
+  padding: 5px;
+  img {
+    margin: auto;
+    display: table;
+    height: 35px;
+  }
+
+  div {
+    text-align: center;
+    color: #294980;
+    margin: 5px 0px;
+  }
+}
+
+
+.pad-s-0{
+  --padding-start:0px !important;
+}
+.no-border{
+  --border-color: transparent !important;
+}
+.blue-color{
+  color: #294980;
+}
+.segment-button-checked ::ng-deep{
+  color: #807f7f;
+  --indicator-color: transparent;
+}
+.securityCode {
+  --highlight-height: 1px;
+  --highlight-color-focused: #fff;
+  --highlight-color-valid: #fff;
+  --highlight-color-invalid: #fff;
+}
+
+.mb5{
+  margin-bottom: -5px;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "DDS2GO",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

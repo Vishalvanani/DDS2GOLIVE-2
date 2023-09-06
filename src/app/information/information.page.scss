@@ -1,0 +1,94 @@
+ion-content::part(background){
+    background: #f8f8f8;
+}
+ion-card-content p{
+    font-size: 16px;
+    // color:black;
+    line-height:1.5;
+}
+
+ion-accordion ion-item ion-label{
+    font-size: 16px;
+}
+
+ion-card{
+    ion-card-header{
+        //background: #57575745;
+        //margin-bottom: 14px;
+        border-bottom: 1px solid #eeeeee;
+    }
+    ion-card-title{
+        //font-weight: 600;
+        font-size: 16px;
+    }
+}
+
+.real-id-card{
+    ion-card-header{
+        padding: 8px;
+        ion-item{
+            --background: none;
+        }
+    }
+    ion-card-content ion-item{
+        height: 40px;
+    }
+}
+.i-points{
+    border-top: 1px solid #eee;
+}
+
+.type-lic{
+  position: relative;
+    top: -7px;
+    left: 4px;
+}
+
+.welcomeMsg{
+    font-size: 22px;
+    margin: 10px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+}
+.cardTitle{
+    font-size: 17px;
+    letter-spacing: 0.2px;
+}
+.cardContent{
+    padding: 5px;
+    .col1{
+        color: #103A84;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        padding: 5px 2px;
+    }
+    .col2{
+        font-size: 14px;
+        padding: 5px 2px;
+        font-weight: 500;
+    }
+    .heartIcon{
+        font-size: 25px;
+        color: red;
+    }
+    .starIcon{
+        font-size: 22px;
+        color: #103A84;
+    }
+    .feesPoint{
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .yellow {
+        color: #ffd534;
+    }
+
+    .red {
+        color: red;
+    }
+}

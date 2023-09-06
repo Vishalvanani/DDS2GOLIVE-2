@@ -1,0 +1,273 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Drving History (MVR)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h4>
+    {{orders['previousMVRData'][selectedInd]['_objMVROrderInfo']._TypeName}}
+  </h4>
+  <ion-accordion-group [animated]="false">
+    <ion-accordion value="doc">
+      <ion-item slot="header" color="light">
+        <ion-label>Document Issued</ion-label>
+      </ion-item>
+
+      <ion-card style="margin: 10px 2px;" *ngFor="let doc of orders['previousMVRData'][selectedInd]['_lstLicenseInfo']" slot="content">
+        <ion-card-content class="cardContent">
+          <ion-row>
+            <ion-col size="6" class="col1">License Class:</ion-col>
+            <ion-col size="6" class="col2">{{doc.m_LicIDClassCD != " " && doc.m_LicIDClassCD ? doc.m_LicIDClassCD : "N/A"}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Issued:</ion-col>
+            <ion-col size="6" class="col2">{{doc.m_LicIDIssueDT != " " && doc.m_LicIDIssueDT ? doc.m_LicIDIssueDT : "N/A" }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Expires:</ion-col>
+            <ion-col size="6" class="col2">{{doc.m_LicIDExpDT != " " && doc.m_LicIDExpDT ? doc.m_LicIDExpDT : "N/A"}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Surrendered:</ion-col>
+            <ion-col size="6" class="col2">{{doc.m_LicenseSurrenderDT != " " && doc.m_LicenseSurrenderDT ? doc.m_LicenseSurrenderDT : "N/A"}}</ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-accordion>
+
+    <ion-accordion value="orderinfo">
+      <ion-item slot="header" color="light">
+        <ion-label>Order Information</ion-label>
+      </ion-item>
+
+      <ion-card style="margin: 10px 2px;" slot="content">
+        <ion-card-content class="cardContent">
+          <ion-row>
+            <ion-col size="6" class="col1">Non-commercial Privilige:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_objDriverInfo']._NonCommercialPrivilidges != " " &&
+              orders['previousMVRData'][selectedInd]['_objDriverInfo']._NonCommercialPrivilidges ? orders['previousMVRData'][selectedInd]['_objDriverInfo']._NonCommercialPrivilidges : "N/A"}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Commercial Privilige:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_objDriverInfo']._CommercialPrivilidges != " " && 
+              orders['previousMVRData'][selectedInd]['_objDriverInfo']._CommercialPrivilidges ? orders['previousMVRData'][selectedInd]['_objDriverInfo']._CommercialPrivilidges : "N/A"}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Limited Permit:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_objDriverInfo']._LimitedPermit != " " && 
+              orders['previousMVRData'][selectedInd]['_objDriverInfo']._LimitedPermit ? orders['previousMVRData'][selectedInd]['_objDriverInfo']._LimitedPermit : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Current Points:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_objDriverInfo']._TotalPoints != " " &&
+              orders['previousMVRData'][selectedInd]['_objDriverInfo']._TotalPoints ? orders['previousMVRData'][selectedInd]['_objDriverInfo']._TotalPoints : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="col1">Order Date:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_objDriverInfo']._OriginalIssueDT != " " &&
+              orders['previousMVRData'][selectedInd]['_objDriverInfo']._OriginalIssueDT ? 
+              orders['previousMVRData'][selectedInd]['_objDriverInfo']._OriginalIssueDT : 'N/A'}}</ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-accordion>
+
+    <ion-accordion value="commercial">
+      <ion-item slot="header" color="light">
+        <ion-label>Commercial Information</ion-label>
+      </ion-item>
+
+      <ion-card style="margin: 10px 2px;" slot="content" *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._DrvrCertStatusCode ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfFormReceived ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertStatusCode ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertExpDate ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarStatusCode ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarExpDate ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedExaminerName ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._PhoneNbr ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertNbr ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertState ||
+      orders['previousMVRData'][selectedInd]['_CDLISMVRData']._RegistryNbr">
+  <p *nfIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._DrvrCertStatusCode">
+        <ion-card-content class="cardContent">
+          <ion-row *nfIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._DrvrCertStatusCode">
+            <ion-col size="6" class="col1">DriverCertification:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._DrvrCertStatusCode != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._DrvrCertStatusCode ? 
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._DrvrCertStatusCode : "N/A"}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode">
+            <ion-col size="6" class="col1">SelfCertification:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode ? 
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfFormReceived">
+            <ion-col size="6" class="col1">SelfCertFormReceived:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfFormReceived  != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfFormReceived ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfFormReceived : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode">
+            <ion-col size="6" class="col1">Type:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode ? 
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertStatusCode">
+            <ion-col size="6" class="col1">MedCertReceived:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertStatusCode != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertStatusCode ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertStatusCode : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertExpDate">
+            <ion-col size="6" class="col1">MedCertExpires:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertExpDate != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertExpDate ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertExpDate : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertExpDate">
+            <ion-col size="6" class="col1">MedRestrictions:</ion-col>
+            <ion-col size="6" class="col2"></ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarStatusCode">
+            <ion-col size="6" class="col1">MedicalVariances:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarStatusCode != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarStatusCode ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarStatusCode : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarExpDate">
+            <ion-col size="6" class="col1">MedVarExpires:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarExpDate != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarExpDate ? 
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarExpDate : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedExaminerName">
+            <ion-col size="6" class="col1">MedExaminerName:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedExaminerName != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedExaminerName ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedExaminerName : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._PhoneNbr">
+            <ion-col size="6" class="col1">MedExaminerPhoneNumber:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._PhoneNbr != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._PhoneNbr ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._PhoneNbr : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertNbr">
+            <ion-col size="6" class="col1">MedLicenseNum:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertNbr != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertNbr ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertNbr : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertState">
+            <ion-col size="6" class="col1">MedExaminerState:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertState != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertState ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertState : 'N/A'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="orders['previousMVRData'][selectedInd]['_CDLISMVRData']._RegistryNbr">
+            <ion-col size="6" class="col1">MedExaminerRegNumber:</ion-col>
+            <ion-col size="6" class="col2">{{orders['previousMVRData'][selectedInd]['_CDLISMVRData']._RegistryNbr != " " &&
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._RegistryNbr ?
+              orders['previousMVRData'][selectedInd]['_CDLISMVRData']._RegistryNbr : 'N/A'}}</ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+
+      <div class="ion-padding" slot="content">
+        <div
+        *ngIf="!orders['previousMVRData'][selectedInd]['_CDLISMVRData']._DrvrCertStatusCode &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfCertCode &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._SelfFormReceived &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertStatusCode &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedCertExpDate &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarStatusCode &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedVarExpDate &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._MedExaminerName &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._PhoneNbr &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertNbr &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._CertState &&
+        !orders['previousMVRData'][selectedInd]['_CDLISMVRData']._RegistryNbr"
+        >
+          <p>There is no Commercial Information data available.</p>
+        </div>
+      </div>
+    </ion-accordion>
+
+    <ion-accordion value="citation">
+      <ion-item slot="header" color="light">
+        <ion-label>Citation(s)</ion-label>
+      </ion-item>
+
+      <div slot="content">
+        <div>
+          <p class="txt-center">There is no Citation data available.</p>
+        </div>
+        
+      </div>
+    </ion-accordion>
+
+    <ion-accordion value="withdrawl">
+      <ion-item slot="header" color="light">
+        <ion-label>withdrawal(s)</ion-label>
+      </ion-item>
+
+      <div slot="content">
+        <ion-card style="margin: 10px 2px;" *ngFor="let doc of orders['previousMVRData'][selectedInd]['_lstSuspensionInfo']">
+          <ion-card-content class="cardContent">
+            <ion-row>
+              <ion-col size="6" class="col1">Description:</ion-col>
+              <ion-col size="6" class="col2">{{doc._SuspDescription != " " && doc._SuspDescription ? doc._SuspDescription : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Withdrawal Type:</ion-col>
+              <ion-col size="6" class="col2">{{doc._WithdrawalTyp != " " && doc._WithdrawalTyp ? doc._WithdrawalTyp : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Withdrawal Extent:</ion-col>
+              <ion-col size="6" class="col2">{{doc._WithdrawalExtent != " " && doc._WithdrawalExtent ? doc._WithdrawalExtent : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Jurisdiction:</ion-col>
+              <ion-col size="6" class="col2">{{doc._Jurisdiction != " " && doc._Jurisdiction ? doc._Jurisdiction : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Served Type:</ion-col>
+              <ion-col size="6" class="col2">{{doc._ServedTyp != " " && doc._ServedTyp ? doc._ServedTyp : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Served Date:</ion-col>
+              <ion-col size="6" class="col2">{{doc._ServedDt != " " && doc._ServedDt ? doc._ServedDt : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Violation Date:</ion-col>
+              <ion-col size="6" class="col2">{{doc._ViolationDt != " " && doc._ViolationDt ? doc._ViolationDt : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Effective Date:</ion-col>
+              <ion-col size="6" class="col2">{{doc._SuspDt != " " && doc._SuspDt ? doc._SuspDt : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Withdrawl Expiry Date:</ion-col>
+              <ion-col size="6" class="col2">{{doc._SuspExpirationDT != " " && doc._SuspExpirationDT ? doc._SuspExpirationDT : 'N/A'}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="col1">Reinstatement Date:</ion-col>
+              <ion-col size="6" class="col2">{{doc._ReinstatementDt != " " && doc._ReinstatementDt ? doc._ReinstatementDt : 'N/A'}}</ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+
+        <div *ngIf="orders['previousMVRData'][selectedInd]['_lstSuspensionInfo'].length ==0">
+          <p class="txt-center">There is no withdrawl data available.</p>
+        </div>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

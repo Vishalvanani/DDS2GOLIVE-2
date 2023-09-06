@@ -1,1 +1,2 @@
-# DDS2GOLIVE-2
+# DDSMobileApp
+Code for DDS Mobile App
