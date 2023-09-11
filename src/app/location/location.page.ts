@@ -98,12 +98,7 @@ ionViewDidEnter(){
         zoom:9,
       },
     });
-    console.log('after gmapcreate');
-    //setTimeout(() => {
       this.addMarkers();
-      console.log('after addmarkers');
-    //}, 20); 
-  //},10);
   }
 
   async addMarkers(){
@@ -261,7 +256,6 @@ async createMapList()
       const query = event.target.value.toLowerCase();
       this.results = this.data.filter(d=>d.Building_Name.toLowerCase().indexOf(query) > -1);
       this.mapResultMarkers(this.results);
-      console.log(this.results);
     }
     else
     {

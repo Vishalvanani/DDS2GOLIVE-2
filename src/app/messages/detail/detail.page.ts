@@ -7,12 +7,11 @@ import { SharedService } from '../../services/shared.service';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
-  styleUrls: ['./detail.page.scss'],
+  styleUrls: ['./detail.page.scss']
 })
 export class DetailPage implements OnInit {
   message:any;
   constructor(private shared:SharedService,private Apiauth:ApiService,private _Activatedroute:ActivatedRoute,private router:Router,private location:Location) {
-   console.log( this._Activatedroute.snapshot.paramMap.get('item'))
    this.message = JSON.parse(this._Activatedroute.snapshot.paramMap.get('item'))
    this.updateReadStatus()
    }
@@ -46,11 +45,9 @@ export class DetailPage implements OnInit {
       method: 'post',
       serviceType: 'updatemessages',
     };
-console.log('detail loader')
     this.shared.showLoading();
     this.Apiauth.doHttp(request).subscribe(
       async (resp:any) => {
-        console.log(resp)
         this.shared.HideLoading();
       },
       (error) => {

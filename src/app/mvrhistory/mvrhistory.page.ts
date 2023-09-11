@@ -30,7 +30,6 @@ export class MvrhistoryPage implements OnInit {
   }
 
   amountChange(ev){
-    console.log(ev)
     this.shared.GBPaymentInfo = ev.detail.value;
   }
 

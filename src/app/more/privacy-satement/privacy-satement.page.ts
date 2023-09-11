@@ -17,7 +17,6 @@ export class PrivacySatementPage implements OnInit {
 
   ngOnInit() {
     this.isFromLogin = this.isFrom == 'login' ? true : false; 
-    console.log(this.isFromLogin)
   }
 
 

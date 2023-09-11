@@ -58,20 +58,14 @@ export class LoginPage implements OnInit {
     });
 
     this.route.queryParams.subscribe(params => {
-      console.log('params: ', params);
-      console.log('this.router.getCurrentNavigation(): ', this.router.getCurrentNavigation());
       if (this.router.getCurrentNavigation().extras.state) {
         this.isFromLogout = this.router.getCurrentNavigation().extras.state.isFromLogout;
       }
-      console.log('this.isFromLogout: ', this.isFromLogout);
       if(!this.isFromLogout){
-        console.log('67');
         this.makeBiometricLogin();
       }
     });
   }
-
-  // good@gmail.com - Password@1
 
   ionViewDidEnter() {
     let saveId = localStorage.getItem('saveid')
@@ -108,8 +102,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     App.addListener('backButton', (event) => {
-      console.log('event: ', event);
-      
     })
   }
 
@@ -121,8 +113,6 @@ export class LoginPage implements OnInit {
       if (this.isFingerprintCancelled) return;
       if (state.isActive && !this.isBrowserOpen && !this.isCalledRunning && !this.router.url.includes("location")) {
         this.isCalledRunning = true;
-        // this.resumeCalledCount++;
-        console.log('122');
         this.makeBiometricLogin();
       } else {
         this.isCalledRunning = false;
@@ -218,7 +208,6 @@ export class LoginPage implements OnInit {
       method: 'post',
       serviceType: 'login',
     };
-    console.log('login loader')
     this.shared.showLoading();
     await this.generateToken();
 
@@ -380,7 +369,6 @@ export class LoginPage implements OnInit {
       method: 'post',
       serviceType: 'twofactor',
     };
-console.log('login2 loader')
     this.shared.showLoading();
     this.Apiauth.doHttp(request).subscribe(
       async (resp: any) => {
@@ -423,7 +411,6 @@ console.log('login2 loader')
       let isUserLoggedIn = localStorage.getItem('user');
       let isFingerprintEnabled = localStorage.getItem('isFingerprintEnabled');
       if (isUserLoggedIn && isFingerprintEnabled) {
-        console.log('423');
         this.makeBiometricLogin()
       } else {
         this.isFingerprintModalOpen = true;
@@ -468,13 +455,9 @@ console.log('login2 loader')
     let isUserExists: any = localStorage.getItem('user')
       ? localStorage.getItem('user')
       : '';
-      console.log("isUserExists", isUserExists)
-      console.log("isFingerPrintSetupSuccess", isFingerPrintSetupSuccess)
     if (isUserExists && isFingerPrintSetupSuccess == 'true') {
-      console.log("463");
       this.performBiometricVerificatin();
     } else {
-      console.log("465");
       this.isCalledRunning = false;
     }
   }
@@ -506,7 +489,6 @@ console.log('login2 loader')
       })
 
         .then(() => {
-          console.log("494");
           this.isValidFingerPrint = true;
           this.isCalledRunning = true;
           let isUserExists: any = localStorage.getItem('user')
@@ -517,13 +499,11 @@ console.log('login2 loader')
           }
         })
         .catch(() => {
-          console.log("505");
           this.isFingerprintCancelled = true;
           this.isCalledRunning = false;
           this.isValidFingerPrint = false;
         });
     } else {
-      console.log("511");
       this.isCalledRunning = false;
       localStorage.removeItem('isFingerprintEnabled');
       alert(

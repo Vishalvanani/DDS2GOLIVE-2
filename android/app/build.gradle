@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "gov.ga.dds.gaddsstaging"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "gov.ga.dds.gaddsstaging"

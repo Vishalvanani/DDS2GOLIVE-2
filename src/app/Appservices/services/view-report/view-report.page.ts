@@ -15,14 +15,11 @@ export class ViewReportPage implements OnInit {
     public Apiauth: ApiService,
     private _Activatedroute:ActivatedRoute,
     private shared:SharedService,private router:Router) { 
-    // this.getOrderDetails();
   }
 
   ngOnInit() {
     this.orders = JSON.parse(this._Activatedroute.snapshot.paramMap.get('orders'))
     this.selectedInd = this._Activatedroute.snapshot.paramMap.get('selectedInd')
-    console.log('this.selectedInd', this.selectedInd)
-    console.log('this.orders', this.orders)
   }
 
 
@@ -40,13 +37,10 @@ export class ViewReportPage implements OnInit {
       action_url: '/Order/getOrders',
       method: 'post',
       serviceType: 'getorders',
-   //   content-Type: 'application/json',
     };
-    console.log('report loader')
     this.shared.showLoading();
     this.Apiauth.doHttp(request).subscribe(
       async (resp:any) => {
-        console.log(resp)
         this.shared.HideLoading();
         
         if(resp.previousOrderInfoResp){

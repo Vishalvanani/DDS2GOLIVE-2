@@ -18,7 +18,6 @@ export class TermsConditionPage implements OnInit {
 
   ngOnInit() {
     this.isFromLogin = this.isFrom == 'login' ? true : false; 
-    console.log(this.isFromLogin)
   }
 
   goBack(){

@@ -17,7 +17,6 @@ export class ApiService {
     private router: Router
   ) {}
   public doHttp(request) {
-    //console.log(request);
     var headers;
 
     let api_url = this.APIURL;
@@ -32,7 +31,6 @@ export class ApiService {
         'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'
       );
 
-    //console.log("http : "+this.shared.GBAPI_TOKEN)
     if (this.shared.GBAPI_TOKEN) {
       headers = new HttpHeaders()
         .set('Content-Type', 'application/json')
@@ -48,7 +46,6 @@ export class ApiService {
     }
     
 
-    // console.log(headers)
     if (!this.checkInternet()) {
       const simpleObservable = new Observable((observer) => {
         // observable execution
@@ -130,7 +127,6 @@ export class ApiService {
 
   logoutApp() {
     let obj = this.shared.GBLogoutObj;
-    console.log('logout loader')
     this.shared.showLoading();
     this.closeSession(obj).then(
       () => {

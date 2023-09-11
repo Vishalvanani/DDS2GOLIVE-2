@@ -27,8 +27,7 @@ export class AppComponent {
     const logDeviceInfo = async () => {
       // const info = await Device.getInfo();
     const deviceid = await Device.getId();
-    this.shared.CLIENT_IP = deviceid.uuid
-    console.log(deviceid.uuid);
+    this.shared.CLIENT_IP = deviceid.identifier
     };
 
     logDeviceInfo();
@@ -41,9 +40,6 @@ export class AppComponent {
       this.platform.backButton.subscribe(() => {
         if (this.router.url === '/login') {
           return false;
-        } else {
-          // event.preventDefault();
-          console.log("else");
         }
       });
     });

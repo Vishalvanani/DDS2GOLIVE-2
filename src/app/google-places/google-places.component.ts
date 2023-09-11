@@ -36,7 +36,7 @@ invokeEvent(place: Object) {
   this.setAddress.emit(place);
 }
 
-clearAddressValue($event){
+clearAddressValue(){
   this.addresstext.nativeElement.value = '';
   this.invokeEvent('');
 }

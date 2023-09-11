@@ -35,12 +35,10 @@ export class MessagesPage implements OnInit {
       method: 'post',
       serviceType: 'messages',
     };
-    console.log('message loader')
     this.shared.showLoading();
     this.isNoMsg = false;
     this.Apiauth.doHttp(request).subscribe(
       async (resp: any) => {
-        console.log(resp);
         this.shared.HideLoading();
 
         let respObj = resp.driverMessageResponse?.lstDriverMessages;
@@ -49,11 +47,9 @@ export class MessagesPage implements OnInit {
           this.list = respObj;
         } else {
           this.isNoMsg = true;
-          //this.shared.presentToast(this.nomessages);
         }
       },
       (error) => {
-        console.log(error);
         this.shared.HideLoading();
         this.shared.presentToast('Something went wrong, Please try again.');
       }

@@ -40,7 +40,6 @@ export class SharedService {
 
   //Spinner Loader
   async showLoading() {
-    console.log('#########')
     await this.loadingCtrl
       .create({
         message: 'Loading...',

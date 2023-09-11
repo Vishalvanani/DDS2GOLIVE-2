@@ -46,9 +46,7 @@ export class OrderhistoryPage implements OnInit {
       action_url: '/Order/getOrders',
       method: 'post',
       serviceType: 'getorders',
-      //content-Type: 'application/json',
     };
-    console.log('orderhistory loader')
     this.shared.showLoading();
     this.Apiauth.doHttp(request).subscribe(
       async (resp: any) => {
@@ -57,25 +55,18 @@ export class OrderhistoryPage implements OnInit {
         if (resp.previousOrderInfoResp) {
           this.orders = resp.previousOrderInfoResp;
           this.changeRef.detectChanges()
-          console.log("this.orders", this.orders)
         } else {
           this.shared.presentToast('No Orders History Available.');
         }
       },
       (error) => {
-        console.log(error);
         this.shared.HideLoading();
         this.isLoadFinish = true;
-        // this.shared.presentToast('Invalid Security Code, Please try again......')
       }
     );
   }
 
   viewReport(item, i) {
-    //this.lstLicense = item;
-    // this.selectedInd = i;
-    //console.log(this.orders['previousMVRData'][this.selectedInd]['_lstLicenseInfo'][0].m_LicIDClassCD)
-    // this.isModalOpen = true;
     this.router.navigate(['/tabs/tabs/tab2/view-report', { orders: JSON.stringify(this.orders), selectedInd: i }])
   }
 
